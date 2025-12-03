@@ -47,3 +47,12 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# Other folders
+data/
+data_input/
+output/
+raw-data/
+report/
+src_dev/
+ENA/

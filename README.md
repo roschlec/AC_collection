@@ -53,8 +53,8 @@ Genome assemblies and raw 16S rRNA gene amplicon sequencing data are available i
 ## Workflow
 1. Clone this repository
 ```
-git clone https://github.com/<username>/<repo>.git
-cd <repo>
+git clone https://github.com/<username>/AC_collection.git
+cd AC_collection
 ```
 
 2. Create an input and output directory
@@ -90,4 +90,5 @@ Figures and processed outputs will be saved automatically into the ```output/```
 If you use this repository, please cite:
 
 > Add Publication link
+
 > Add Zenodo link

@@ -63,7 +63,7 @@ rename_class <- c("Acidobacteriae" = "Terriglobia",
                   "Bacilli" = "Bacilli",
                   "Bacteroidia" = "Bacteroidia",
                   "Clostridia" = "Clostridia",         
-                  "Cyanobacteriia" = "Chroococcophyceae",
+                  "Cyanobacteriia" = "Cyanobacteriia",
                   "Deinococci" = "Deinococci",
                   "Gammaproteobacteria" = "Gammaproteobacteria",
                   "Nitrospiria" = "Nitrospiria",
@@ -161,5 +161,8 @@ plt_fig1 <-
 
 # Output ------------------------------------------------------------------
 
-ggsave(plot = plt_fig1,
-  here("output", "Figure1.tiff"), dpi = 600, width = 12, height = 3)
+mapply(function(x) 
+  ggsave(x, 
+         plot = plt_fig1, 
+         dpi = 300, width = 12, height = 3),
+  x = c(here("output", "Figure1.png"), here("output", "Figure1.eps")))

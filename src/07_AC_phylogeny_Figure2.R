@@ -120,7 +120,7 @@ p <- ggtree(tree, layout = "circular") +
   new_scale_fill()
 
 plt_figure2 <- 
-  gheatmap(p, df_comp, offset = -0.02, width = 0.05, hjust = 1,
+  gheatmap(p, df_compartment, offset = -0.02, width = 0.05, hjust = 1,
            colnames_angle = 95, colnames = FALSE) +
   scale_fill_manual(name = "Compartment",
                     values = palette, labels = compartment_labels,
@@ -131,5 +131,8 @@ plt_figure2 <-
 
 # Output ------------------------------------------------------------------
 
-ggsave(plot = plt_figure2,
-       here("output", "Figure2.tiff"), dpi = 600, width = 12, height = 15)
+mapply(function(x) 
+  ggsave(x, 
+         plot = plt_figure2, 
+         dpi = 300, width = 12, height = 15),
+  x = c(here("output", "Figure2.png"), here("output", "Figure2.eps")))

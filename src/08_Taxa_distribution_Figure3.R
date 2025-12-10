@@ -5,6 +5,7 @@
 library(here)
 library(tidyverse)
 library(ggh4x)
+library(cowplot)
 
 # Data input --------------------------------------------------------------
 
@@ -29,7 +30,10 @@ family_count <-
   mutate(Relative_abundance = n/sum(n),
          signed_count = if_else(Compartment == "Endo", 
                                 -Relative_abundance, 
-                                Relative_abundance))
+                                Relative_abundance),
+         ypos = if_else(signed_count < 0, 
+                        100*signed_count - 2, 
+                        100*signed_count + 2))
 
 # Family Level ------------------------------------------------------------
 
@@ -48,23 +52,9 @@ plt_figure3 <-
   geom_point(aes(color = Compartment), size = 2) +
   geom_vline(xintercept = 0) +
   
-  geom_text_repel(
-    data =  family_count |> filter(signed_count < 0),
-    aes(label = n),
-    force_pull   = 0, # do not pull toward data points
-    nudge_x = -0.01,
-    direction = "x",
-    segment.size = 0.1,
-    size = 3) +
-  
-  geom_text_repel(
-    data =  family_count |> filter(signed_count > 0),
-    aes(label = n),
-    force_pull   = 0, # do not pull toward data points
-    nudge_x = 0,
-    direction = "x",
-    segment.size = 0.1,
-    size = 3) +
+  geom_text(
+    aes(x = ypos, label = n), size = 3
+  ) +
 
   guides(colour = guide_legend(title = "Compartment")) +
   scale_x_continuous(name = "Percentage of strains per compartment [%]", 
@@ -80,16 +70,26 @@ plt_figure3 <-
     axis.ticks = element_blank(),
     legend.key.size = unit(0.3, "cm"),
     strip.placement = "outside",
-    strip.switch.pad.wrap = unit(1, "mm"),
-    strip.background = element_rect(linewidth = 0.2),
+    strip.switch.pad.wrap = unit(0.5, "mm"),
+    strip.background = element_rect(linewidth = 0.5),
     strip.text.y.left = element_text(size = 8, angle = 0, color = 'black'),
     axis.text = element_text(size = 8, color = 'black'),
     panel.background = element_blank(),
     panel.border = element_rect(fill = NA, colour = "gray"),
     panel.spacing.y = unit(0.5, "mm"))
 
+plt_figure3 <- 
+  ggdraw(plt_figure3, ylim = c(0, 1.05)) + 
+  draw_text("Phylum", x = 0.0625, y = 1.01, size = 9) +
+  draw_text("Class", x = 0.1625, y = 1.01, size = 9) +
+  draw_text("Order", x = 0.2625, y = 1.01, size = 9) +
+  draw_text("Family", x = 0.375, y = 1.01, size = 9)
+  
+
 # Save --------------------------------------------------------------------
 
-pdf(here("output", "Figure3.pdf"), height = 6, width = 12)
-plt_figure3
-dev.off()
+mapply(function(x) 
+  ggsave(x, 
+         plot = plt_figure3, 
+         dpi = 300, width = 12, height = 6),
+  x = c(here("output", "Figure3.png"), here("output", "Figure3.eps")))

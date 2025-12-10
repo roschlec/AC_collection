@@ -27,11 +27,19 @@ ac_tax <-
       order == "Cytophagales" ~ "Cytophagia",
       order == "Flavobacteriales" ~ "Flavobacteriia",
       order == "Sphingobacteriales" ~ "Sphingobacteriia",
-      class == "Actinomycetia" ~ "Actinomycetes", 
-      TRUE ~ class),
+      class == "Actinomycetia" ~ "Actinomycetes", TRUE ~ class),
     order = case_when(
+      order == "Staphylococcales" ~ "Caryophanales",
+      order == "Acetobacterales" ~ "Rhodospirillales",
       family %in% c("Dermatophilaceae", "Microbacteriaceae", "Micrococcaceae") ~ "Micrococcales",
-      family == "Kineococcaceae" ~ "Kineosporiaceae", TRUE ~ order)) |> 
+      family == "Kineococcaceae" ~ "Kineosporiales", 
+      genus == "Methylobacterium" ~ "Hyphomicrobiales", TRUE ~ order),
+    family = case_when(
+      family == "Kineococcaceae" ~ "Kineosporiaceae",
+      family == "Spirosomaceae" ~ "Spirosomataceae", 
+      genus == "Methylobacterium" ~ "Methylobacteriaceae", TRUE ~ family),
+    genus = case_when(
+      genus == "Rhodococcoides" ~ "Rhodococcus", TRUE ~ genus)) |> 
   left_join(ac_list, by = "strain")
 
 # Save --------------------------------------------------------------------

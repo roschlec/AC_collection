@@ -78,4 +78,4 @@ asv_seqs_df <- data.frame(ASV = asv_ids, Sequence = asv_seqs)
 # Export ------------------------------------------------------------------
 # ASV table
 write_rds(seqtab.nochim, here("data_input", "seqtab.rds"))
-write.csv(asv_seqs_df, here("data_input", "ASV_sequenc
+write.csv(asv_seqs_df, here("data_input", "ASV_sequences.csv"), row.names=FALSE)

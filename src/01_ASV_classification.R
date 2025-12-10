@@ -56,4 +56,4 @@ ps_sub <- subset_taxa(ps,
 # Save --------------------------------------------------------------------
 saveRDS(taxa, here('data_input', 'taxa_silva.rds'))
 saveRDS(ps, here('data_input', 'fullphyloseqData.rds'))
-saveRDS(ps_sub, here('data_input', 'ph
+saveRDS(ps_sub, here('data_input', 'phyloseqData.rds'))

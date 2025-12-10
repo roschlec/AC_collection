@@ -28,7 +28,24 @@ taxa_16s <-
   tax_glom(taxrank = "Class") |> 
   transform_sample_counts(function(x) x / sum(x)) |> 
   psmelt() |> 
-  mutate(Class = ifelse(Abundance < threshold, "Other", Class)) |> 
+  mutate(Class = ifelse(Abundance < threshold, "Other", Class))
+
+rename_class <- c("Acidobacteriae" = "Terriglobia",
+                  "Actinobacteria" = "Actinomycetes",
+                  "Alphaproteobacteria" = "Alphaproteobacteria",
+                  "Bacilli" = "Bacilli",
+                  "Bacteroidia" = "Bacteroidia",
+                  "Clostridia" = "Clostridia",         
+                  "Cyanobacteriia" = "Chroococcophyceae",
+                  "Deinococci" = "Deinococci",
+                  "Gammaproteobacteria" = "Gammaproteobacteria",
+                  "Nitrospiria" = "Nitrospiria",
+                  "Other" = "Other",
+                  "Planctomycetes" = "Planctomycetia",     
+                  "Verrucomicrobiia" = "Verrucomicrobiia")
+
+taxa_16s <- taxa_16s |> 
+  mutate(Class = recode(Class, !!!rename_class)) |> 
   pull(Class) |> 
   unique()
 

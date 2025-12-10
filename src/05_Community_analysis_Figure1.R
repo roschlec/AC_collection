@@ -57,6 +57,23 @@ ps_lvl <-
   group_by(Sample, compartment, label, Abundance, Class) |> 
   summarise(Abundance = sum(Abundance), .groups = "drop")
 
+rename_class <- c("Acidobacteriae" = "Terriglobia",
+                  "Actinobacteria" = "Actinomycetes",
+                  "Alphaproteobacteria" = "Alphaproteobacteria",
+                  "Bacilli" = "Bacilli",
+                  "Bacteroidia" = "Bacteroidia",
+                  "Clostridia" = "Clostridia",         
+                  "Cyanobacteriia" = "Chroococcophyceae",
+                  "Deinococci" = "Deinococci",
+                  "Gammaproteobacteria" = "Gammaproteobacteria",
+                  "Nitrospiria" = "Nitrospiria",
+                  "Other" = "Other",
+                  "Planctomycetes" = "Planctomycetia",     
+                  "Verrucomicrobiia" = "Verrucomicrobiia")
+
+ps_lvl <- ps_lvl |> 
+  mutate(Class = recode(Class, !!!rename_class))
+
 # Beta diversity
 #   Ellipse
 ordi <- ordiellipse(nmds, nmds.df$Compartment, kind = "sd", conf = 0.95, draw = "polygon")

@@ -1,7 +1,7 @@
 <p align="left">
 
 <!-- Zenodo DOI badge -->
-<a href="https://doi.org/INSERT_DOI_HERE">
+<a href="https://doi.org/10.5281/zenodo.17812155">
   <img src="https://img.shields.io/badge/DOI-pending-blue.svg" alt="DOI">
 </a>
 
@@ -53,7 +53,7 @@ Genome assemblies and raw 16S rRNA gene amplicon sequencing data are available i
 ## Workflow
 1. Clone this repository
 ```
-git clone https://github.com/<username>/AC_collection.git
+git clone https://github.com/relab-fuberlin/AC_collection.git
 cd AC_collection
 ```
 
@@ -64,7 +64,7 @@ mkdir -p output
 ```
 
 3. Download the metadata from Zenodo
-Visit the Zenodo repository: 10.5281/zenodo.17812155. Download the dataset archive and extract its contents into the ```data_input/``` directory.
+Visit the Zenodo repository: [10.5281/zenodo.17812155](10.5281/zenodo.17812155). Download the dataset archive and extract its contents into the ```data_input/``` directory.
 
 4. Open RStudio and run the workflow
 
@@ -91,4 +91,4 @@ If you use this repository, please cite:
 
 > Add Publication link
 
-> Add Zenodo link
+> Schlechter, R., Miebach, M., & Remus-Emsermann, M. (2025). Arabidopsis Christchurch (AC) Leaf-Associated Bacterial Collection Dataset [Data set]. Zenodo. https://doi.org/10.5281/zenodo.17812155
